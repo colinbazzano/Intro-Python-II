@@ -1,5 +1,5 @@
 from room import Room
-
+from player import Player
 # Declare all the rooms
 
 room = {
@@ -38,14 +38,65 @@ room['treasure'].s_to = room['narrow']
 #
 
 # Make a new player object that is currently in the 'outside' room.
+# adventurer = Player("Colin", room["outside"])
+# active_room = adventurer.current_room
 
-# Write a loop that:
-#
-# * Prints the current room name
-# * Prints the current description (the textwrap module might be useful here).
-# * Waits for user input and decides what to do.
-#
-# If the user enters a cardinal direction, attempt to move to the room there.
-# Print an error message if the movement isn't allowed.
-#
-# If the user enters "q", quit the game.
+
+# for error handling so it is visible to the user
+def prRed(skk): print("\033[91m {}\033[00m" .format(skk))
+
+# for prompts at the beginning
+
+
+def prGreen(skk): print("\033[92m {}\033[00m" .format(skk))
+
+# for updating location prompts
+
+
+def prLightPurple(skk): print("\033[94m {}\033[00m" .format(skk))
+
+
+user_name = input("What is your name? ")
+player = Player(user_name, room["outside"])
+prGreen(f"Welcome, {player.name}!")
+prGreen("You can move by typing n, s, e, w to go in that cardinal direction.")
+
+while True:
+    prLightPurple(
+        f">>> You are in: {player.current_room.name}\n>>> {player.current_room.description}")
+
+    cmd = input(f">>> {player.name} thinks... where to next? -> ")
+
+    if cmd == "n":
+        if player.current_room.n_to:
+            player.current_room = player.current_room.n_to
+        else:
+            prRed("*************** There's no room to the North! ***************")
+    elif cmd == "s":
+        if player.current_room.s_to:
+            player.current_room = player.current_room.s_to
+        else:
+            prRed("*************** There's no room to the South! ***************")
+    elif cmd == "e":
+        if player.current_room.e_to:
+            player.current_room = player.current_room.e_to
+        else:
+            prRed("*************** There's no room to the East! ***************")
+    elif cmd == "w":
+        if player.current_room.w_to:
+            player.current_room = player.current_room.w_to
+        else:
+            prRed("*************** There's no room to the West! ***************")
+    elif cmd == "q":
+        quit()
+    else:
+        prRed("That is no a valid entry, try n, s, w, e, or q to quit.")
+
+#         # * Prints the current room name
+#         # * Prints the current description (the textwrap module might be useful here).
+#         # * Waits for user input and decides what to do.
+#         #
+#         # If the user enters a cardinal direction, attempt to move to the room there.
+#         # Print an error message if the movement isn't allowed.
+#         #
+#         # If the user enters "q", quit the game.
