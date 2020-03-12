@@ -13,7 +13,6 @@ class Player:
             self.current_room = getattr(self.current_room, f"{direction}_to")
             print("you can go:", self.current_room)
             print("Current Room:", self.current_room.name)
-            # print("Items available:", self.current_room.items)
             print(self.current_room.description)
         else:
             print("You cannot move in that direction")
@@ -29,11 +28,6 @@ class Player:
     def __str__(self):
         return_string = self.items
         return return_string
-# commands should be get/take and drop
-
-    # def get_item(self, item):
-    #     if item not in self.items:
-    #         self.items.append(item)
 
     def take_item(self, item):
         if item in self.current_room.items:

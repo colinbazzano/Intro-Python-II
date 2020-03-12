@@ -7,7 +7,6 @@ class Item:
         item_string = self.name
         item_string = self.description
         return item_string
-    # TODO: on_take / on_drop for when user interacts with item
 
 
 class Food(Item):

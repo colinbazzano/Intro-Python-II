@@ -38,27 +38,15 @@ room['narrow'].n_to = room['treasure']
 room['treasure'].s_to = room['narrow']
 
 # creates items
-# rock = Item("rock", "This is a rock.")
-# sandwich = Food("sandwich", "This is a delicious sandwich.", 100)
-# egg = Egg()
-#
+
 # Main
-#
+
 # Make a new player object that is currently in the 'outside' room.
 player = Player(input("Please enter your name: "), room['outside'])
 print("You can go:", player.current_room)
 print("You are currently: ", player.current_room.name)
 print(player.current_room.description)
-# room["foyer"].items.append(rock)
-# room["outside"].items.append(rock)
-# player.items.append(rock)
-# player.items.append(sandwich)
-# print(player.take_item(rock))
-# player.take_item(rock)
-# player.items.append(egg)
-# player.eat(rock)
-# player.eat(sandwich)
-# player.eat(egg)
+
 # Write a loop that:
 #
 # * Prints the current room name
