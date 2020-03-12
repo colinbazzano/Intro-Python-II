@@ -1,25 +1,48 @@
-# Implement a class to hold room information. This should have name and
-# description attributes.
-
-# Room Class
-# n_to s_to e_to and w_to are directional paths from current_room to the next room
-
-# , n_to, s_to, e_to, w_to
-
-
 class Room:
-    n_to = None
-    s_to = None
-    e_to = None
-    w_to = None
-
-    def __init__(self, name, description):
+    def __init__(self, name, description, items=None):
         self.name = name
         self.description = description
-        # self.n_to = n_to
-        # self.s_to = s_to
-        # self.e_to = e_to
-        # self.w_to = w_to
+        self.n_to = None
+        self.s_to = None
+        self.e_to = None
+        self.w_to = None
+        if items is None:
+            self.items = []
+        else:
+            self.items = items
 
     def __str__(self):
-        return f"{self.name} \n {self.description}"
+        return_string = self.name
+        return_string = "\n"
+        return_string = ""
+        return_string = "\n"
+        return_string = self.description
+        return_string = "\n"
+        return_string = self.items
+        return_string = f"{self.get_exits_string()}"
+        return return_string
+
+    def show_items(self, item_name):
+        for item in self.items:
+            if item.name == item_name:
+                return True
+            else:
+                return False
+
+    def add_item(self, item):
+        self.items.append(item)
+
+    def remove_item(self, item):
+        self.items.remove(item)
+
+    def get_exits_string(self):
+        exits = []
+        if self.n_to is not None:
+            exits.append("n")
+        if self.s_to is not None:
+            exits.append("s")
+        if self.e_to is not None:
+            exits.append("e")
+        if self.w_to is not None:
+            exits.append("w")
+        return exits
