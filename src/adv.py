@@ -1,5 +1,6 @@
 from room import Room
 from player import Player
+from item import Item
 
 """
 PRINT COLORS BELOW
@@ -53,6 +54,21 @@ room['narrow'].w_to = room['foyer']
 room['narrow'].n_to = room['treasure']
 room['treasure'].s_to = room['narrow']
 
+# Items
+
+items = {
+    "sword": Item("sword", "A really old and rusty sword"),
+    "plastic": Item("plastic", "Really? A plastic bag, even in this old cave?"),
+    "money": Item("money", "A clean, crisp 5 dollar bill, nice!")
+}
+
+# Add items to rooms
+
+room["foyer"].items = [items["sword"]]
+room["overlook"].items = [items["money"]]
+room["treasure"].items = [items["plastic"]]
+
+
 #
 # Main
 #
@@ -85,5 +101,17 @@ while True:
         exit(0)
     elif cmd in valid_directions:
         player.travel(cmd)
+        player.display_items()
+    elif cmd == "i":
+        player.display_inventory()
+    elif cmd.startswith("get") or cmd.startswith("take"):
+        cmd_word = cmd.split()
+        if len(player.current_room.items) > 0 and player.current_room.show_items(cmd_word[1]):
+            player.take_item(items[cmd_word[1]])
+        else:
+            print(f"This room doesn't have a {cmd_word[1]}")
+    elif cmd.startswith("drop"):
+        cmd_word = cmd.split()
+        player.drop_item(cmd_word[1])
     else:
         prRed("I did not understand that command...")
