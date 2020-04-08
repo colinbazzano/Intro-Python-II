@@ -1,4 +1,24 @@
 from room import Room
+from player import Player
+
+"""
+PRINT COLORS BELOW
+"""
+# for error handling so it is visible to the user
+
+
+def prRed(skk): print("\033[91m {}\033[00m" .format(skk))
+
+# for prompts at the beginning
+
+
+def prGreen(skk): print("\033[92m {}\033[00m" .format(skk))
+
+# for updating location prompts
+
+
+def prLightPurple(skk): print("\033[94m {}\033[00m" .format(skk))
+
 
 # Declare all the rooms
 
@@ -38,6 +58,12 @@ room['treasure'].s_to = room['narrow']
 #
 
 # Make a new player object that is currently in the 'outside' room.
+# We access the room["like this"] because it is a dictionary!
+player = Player(input("Please enter your name: "), room["outside"])
+# print("You can go: ", player.current_room)
+print("You may go: ", player.current_room.get_available_rooms())
+print("You are currently: ", player.current_room.name)
+print(player.current_room.description)
 
 # Write a loop that:
 #
@@ -49,3 +75,15 @@ room['treasure'].s_to = room['narrow']
 # Print an error message if the movement isn't allowed.
 #
 # If the user enters "q", quit the game.
+
+valid_directions = ("n", "s", "e", "w")
+
+while True:
+    cmd = input("\n~~~> ")
+    if cmd == "q":
+        prGreen("Thank you for playing!")
+        exit(0)
+    elif cmd in valid_directions:
+        player.travel(cmd)
+    else:
+        prRed("I did not understand that command...")
